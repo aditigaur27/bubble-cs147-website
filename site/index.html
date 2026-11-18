@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bubble — Be incredibly focused</title>
+<meta name="description" content="Bubble is a pet that lives on your desk and thrives as you focus. A CS 147 project at Stanford, Autumn 2026.">
+<link rel="icon" href="assets/duck-mother.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Instrument+Serif:ital@0;1&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;display=swap">
+<!-- ?v= makes browsers fetch fresh copies after an upload. Bump it whenever you change a CSS or JS file. -->
+<link rel="stylesheet" href="css/tokens.css?v=20261118">
+<link rel="stylesheet" href="css/styles.css?v=20261118">
+<link rel="stylesheet" href="css/intro.css?v=20261118">
+<script>
+  // Opening animation: plays on the first page load of each browser session (sessionStorage is per tab,
+  // so a new tab or window plays it again; reloading doesn't). Never with reduced motion.
+  // Add ?intro to the URL to see it again, or ?nointro to skip it.
+  (function () {
+    try {
+      if (/[?&]nointro\b/.test(location.search)) return;
+      var force = /[?&]intro\b/.test(location.search);
+      var calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (force || (!calm && !sessionStorage.getItem("bubble-intro-seen"))) {
+        document.documentElement.classList.add("intro");
+        sessionStorage.setItem("bubble-intro-seen", "1");
+      }
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<!-- OPENING ANIMATION (css/intro.css + js/intro.js). Removed from the page once it finishes. -->
+<section id="bubble-intro" aria-hidden="true">
+  <div class="bi-bg"></div>
+  <div class="bi-dock"><div class="bi-logo">
+    <img class="bi-main" alt="" src="assets/logo-intro.webp">
+    <img class="bi-bub" alt="">
+    <div class="bi-glint"></div>
+  </div></div>
+  <canvas></canvas>
+  <a class="bi-replay" href="#" role="button" tabindex="-1">replay</a>
+</section>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="hero__bubbles" aria-hidden="true">
+    <span class="soap" style="left: 6%; top: 150px; --s: 84px"></span>
+    <span class="soap" style="left: 12%; top: 96px; --s: 30px"></span>
+    <span class="soap" style="left: 3%; top: 360px; --s: 46px"></span>
+    <span class="soap" style="right: 7%; top: 170px; --s: 110px"></span>
+    <span class="soap" style="right: 4%; top: 104px; --s: 36px"></span>
+    <span class="soap" style="right: 14%; top: 400px; --s: 54px"></span>
+    <span class="soap" style="left: 22%; top: 470px; --s: 24px"></span>
+  </div>
+
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Main">
+      <a href="#process" class="glass pill">Process</a>
+      <a href="#deliverables" class="glass pill">Deliverables</a>
+      <a href="#team" class="glass pill">Team</a>
+    </nav>
+    <a href="#top" class="site-logo"><img src="assets/logo.png" alt="Bubble — home"></a>
+    <div class="site-header__end">
+      <p class="course-tag">CS 147 · Stanford<br>Autumn 2026</p>
+    </div>
+  </header>
+
+  <section class="hero__body" aria-labelledby="hero-h">
+    <h1 id="hero-h" class="hero__title">
+      <span>Be <span class="accent">incredibly</span></span>
+      <span>Focused</span>
+    </h1>
+    <p class="hero__lede"><strong>Bubble</strong> is a pet that lives on your desk and thrives as you focus.</p>
+
+    <div class="lineup">
+      <div class="duck duck--artist hide-sm" role="img" aria-label="Duckling in a beret holding a paint palette">
+        <img class="duck__leg duck__leg--back" src="assets/walk/artist-back.png" alt="">
+        <img class="duck__leg duck__leg--front" src="assets/walk/artist-front.png" alt="">
+        <img class="duck__body" src="assets/walk/artist-body.png" alt="">
+      </div>
+      <div class="duck duck--chef hide-sm" role="img" aria-label="Duckling in a chef’s hat holding a whisk">
+        <img class="duck__leg duck__leg--back" src="assets/walk/chef-back.png" alt="">
+        <img class="duck__leg duck__leg--front" src="assets/walk/chef-front.png" alt="">
+        <img class="duck__body" src="assets/walk/chef-body.png" alt="">
+      </div>
+      <div class="duck duck--cap" role="img" aria-label="Winking duckling in a backwards cap">
+        <img class="duck__leg duck__leg--back" src="assets/walk/cap-back.png" alt="">
+        <img class="duck__leg duck__leg--front" src="assets/walk/cap-front.png" alt="">
+        <img class="duck__body" src="assets/walk/cap-body.png" alt="">
+      </div>
+      <div class="duck duck--bandana" role="img" aria-label="Duckling in a blue bandana">
+        <img class="duck__leg duck__leg--back" src="assets/walk/bandana-back.png" alt="">
+        <img class="duck__leg duck__leg--front" src="assets/walk/bandana-front.png" alt="">
+        <img class="duck__body" src="assets/walk/bandana-body.png" alt="">
+      </div>
+      <div class="duck duck--mother mom" role="img" aria-label="Mother duck leading her ducklings">
+        <img class="duck__leg duck__leg--back" src="assets/walk/mother-back.png" alt="">
+        <img class="duck__leg duck__leg--front" src="assets/walk/mother-front.png" alt="">
+        <img class="duck__body" src="assets/walk/mother-body.png" alt="">
+      </div>
+    </div>
+  </section>
+</div>
+
+<main>
+
+<!-- THE PROBLEM -->
+<section class="problem" aria-labelledby="prob-h">
+  <h2 id="prob-h" class="problem__label">The problem</h2>
+  <p class="problem__statement">
+    <span class="focus-line">For too long, being able to focus meant showcasing exceptional willpower.</span>
+    <span class="focus-line muted">We believe focus should come to you naturally, as a product of something you care about, rather than beating yourself with a stick for it.</span>
+  </p>
+</section>
+
+<!-- MEET BUBBLE -->
+<section id="meet" class="meet tiles" aria-labelledby="meet-h">
+  <div class="wrap">
+    <div class="meet__intro">
+      <div>
+        <p class="eyebrow">The solution</p>
+        <h2 id="meet-h" class="h2">Meet Bubble</h2>
+      </div>
+      <p class="meet__blurb">A physical duck that pairs with an app. When your devices pull you away, the duck feels it. When you stay on task, it glows.</p>
+    </div>
+    <div class="steps">
+      <article class="step">
+        <p class="step__num">01</p>
+        <h3>Set it on your desk</h3>
+        <p>Pair the duck once. Nothing else about how you work has to change.</p>
+      </article>
+      <article class="step">
+        <p class="step__num">02</p>
+        <h3>Choose what distracts you</h3>
+        <p>Block apps, set screen-time limits, and decide who can still reach you.</p>
+      </article>
+      <article class="step step--highlight">
+        <p class="step__num">03</p>
+        <h3>Watch it thrive</h3>
+        <p>The duck’s glow and expressions mirror your habits. It motivates through care, not pressure.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- HOW WE GOT HERE
+     When an assignment is finished: remove "stop--soon" from its stop, write its note,
+     and move the "we're here" marker. The solid line draws all the way to the last stop as you scroll. -->
+<section id="process" class="process wrap" aria-labelledby="proc-h">
+  <h2 id="proc-h" class="h2">How we<br>got here</h2>
+
+  <div class="proc">
+    <svg class="proc__svg" aria-hidden="true" viewBox="0 0 1200 2000">
+      <path class="proc__track proc__track--faint" d="M1080 30 C1000 40 940 80 900 140 C860 220 1010 270 985 195 C965 135 820 170 700 240 C560 310 400 280 380 340 C360 420 700 440 760 560 C800 650 420 660 330 800 C260 900 760 880 820 1020 C870 1140 420 1120 360 1240 C300 1360 760 1340 800 1460 C840 1580 420 1560 380 1680 C340 1800 680 1780 720 1900 C740 1950 700 1990 640 2000"></path>
+      <path class="proc__track draw" pathLength="1" stroke-dasharray="1 2" d="M1080 30 C1000 40 940 80 900 140 C860 220 1010 270 985 195 C965 135 820 170 700 240 C560 310 400 280 380 340 C360 420 700 440 760 560 C800 650 420 660 330 800 C260 900 760 880 820 1020 C870 1140 420 1120 360 1240 C300 1360 760 1340 800 1460 C840 1580 420 1560 380 1680 C340 1800 680 1780 720 1900 C740 1950 700 1990 640 2000"></path>
+      <circle class="proc__start" cx="1080" cy="30" r="14"></circle>
+    </svg>
+
+    <div class="stop" style="--x: 75%; --y: 7%; --w: 290px">
+      <div class="stop__head"><h3 class="stop__title">Needfinding</h3><img class="stop__duck" src="assets/duckling-book.png" alt=""></div>
+      <p class="stop__note"><strong>A1</strong> · We interviewed people about where and why their focus breaks down.</p>
+    </div>
+
+    <div class="stop" style="--x: 31.6%; --y: 17%">
+      <div class="stop__head"><h3 class="stop__title">Ideation</h3><img class="stop__duck" src="assets/duckling-artist.png" alt=""></div>
+      <p class="stop__note"><strong>A2</strong> · Points of view, How Might We questions, brainstorming and experience prototypes.</p>
+    </div>
+
+    <div class="stop" style="--x: 63.3%; --y: 28%; --w: 280px">
+      <div class="stop__head"><h3 class="stop__title">Concept video</h3><img class="stop__duck" src="assets/duckling-cap.png" alt=""></div>
+      <p class="stop__note"><strong>A4</strong> · The Bubble idea, told as a short film.</p>
+    </div>
+
+    <div class="stop" style="--x: 30%; --y: 40%; --w: 320px">
+      <div class="stop__head">
+<h3 class="stop__title">Lo-fi testing</h3><img class="stop__duck" src="assets/duckling-chef.png" alt=""></div>
+      <p class="stop__note"><strong>A5</strong> · Three sketched directions, one paper prototype, four testers.</p>
+    </div>
+
+    <div class="stop" style="--x: 68.3%; --y: 51%; --w: 310px">
+      <div class="stop__head">
+        <h3 class="stop__title">Med-fi prototype</h3>
+        <div class="here"><img src="assets/duck-mother.png" alt=""><span class="here__tag">we’re here!</span></div>
+      </div>
+      <p class="stop__note"><strong>A6</strong> · Our first clickable app, built in Figma around three tasks: set up, choose who can reach you, and track your focus.</p>
+    </div>
+
+    <div class="stop stop--soon" style="--x: 30%; --y: 62%">
+      <div class="stop__head"><h3 class="stop__title">Hi-fi prototype</h3><img class="stop__duck" src="assets/duckling-bandana.png" alt=""></div>
+      <p class="stop__note"><strong>A8</strong> · Coming soon</p>
+    </div>
+
+    <div class="stop stop--soon" style="--x: 66.6%; --y: 73%">
+      <div class="stop__head"><h3 class="stop__title">Heuristic eval</h3><img class="stop__duck" src="assets/duckling-book.png" alt=""></div>
+      <p class="stop__note"><strong>A9</strong> · Coming soon</p>
+    </div>
+
+    <div class="stop stop--soon" style="--x: 31.6%; --y: 84%">
+      <div class="stop__head"><h3 class="stop__title">Pitch &amp; demo</h3><img class="stop__duck" src="assets/duckling-cap.png" alt=""></div>
+      <p class="stop__note"><strong>A10</strong> · Coming soon</p>
+    </div>
+
+    <div class="stop stop--soon" style="--x: 60%; --y: 95%">
+      <div class="stop__head"><h3 class="stop__title">Final report</h3><img class="stop__duck" src="assets/duckling-sleepy.png" alt=""></div>
+      <p class="stop__note"><strong>A11</strong> · Coming soon</p>
+    </div>
+  </div>
+</section>
+
+<!-- THE PAPER TRAIL (cards are built by js/carousel.js; edit the list of deliverables there) -->
+<section id="deliverables" class="paper-trail" aria-labelledby="del-h">
+  <div class="wrap paper-trail__head">
+    <div>
+      <p class="eyebrow">Deliverables</p>
+      <h2 id="del-h" class="h2">The paper trail</h2>
+    </div>
+  </div>
+
+  <div class="carousel" id="carousel" aria-roledescription="carousel" aria-label="Deliverables">
+    <div id="car-track" class="car-track" aria-live="polite"></div>
+    <button type="button" id="car-prev" class="glass car-arrow car-arrow--prev" aria-label="Previous deliverable"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></button>
+    <button type="button" id="car-next" class="glass-ink car-arrow car-arrow--next" aria-label="Next deliverable"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></button>
+  </div>
+  <div id="car-dots" class="car-dots"></div>
+
+  <noscript>
+    <div class="wrap">
+      <p>Deliverables: <a href="deliverables/A1_Needfinding.pdf">A1 slides</a> · <a href="deliverables/A2_Ideate_Presentation.pdf">A2 slides</a> · <a href="deliverables/A4_Concept_Video_Slides.pdf">A4 slides</a> · <a href="videos/A4_Concept_Video.mp4">A4 video</a> · <a href="deliverables/A5_Presentation.pdf">A5 slides</a> · <a href="deliverables/A5_Report.pdf">A5 report</a> · <a href="deliverables/A6_Presentation.pdf">A6 slides</a> · <a href="https://www.figma.com/proto/cRgTpD1Zb3AHV8ClkvMqcw/Medium-Fidelity-Prototype---Bubble?node-id=58-3112&amp;starting-point-node-id=58%3A3112">A6 Figma prototype</a> · <a href="deliverables/A6_README.pdf">A6 README</a>. More coming soon.</p>
+    </div>
+  </noscript>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos" class="videos wrap" aria-labelledby="vid-h">
+  <h2 id="vid-h" class="h2">Videos</h2>
+  <div class="videos__grid">
+    <article class="video">
+      <div class="video__frame">
+        <video controls preload="metadata" playsinline src="videos/A4_Concept_Video.mp4">
+          Your browser can’t play this video. <a href="videos/A4_Concept_Video.mp4" download>Download it (MP4)</a>.
+        </video>
+      </div>
+      <div class="video__foot">
+        <h3>A4 · Concept video</h3>
+        <div class="video__links">
+          <a href="https://youtu.be/Z2lwZSsvX3U" class="glass pill">YouTube</a>
+          <a href="videos/A4_Concept_Video.mp4" download class="glass pill">Download (MP4)</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="video">
+      <div class="video__frame video__frame--soon">
+        <p>Demo video coming soon</p>
+      </div>
+      <div class="video__foot">
+        <h3>A10 · Demo video</h3>
+        <div class="video__links">
+          <span class="pill pill--soon">YouTube</span>
+          <span class="pill pill--soon">Download (MP4)</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" class="team wrap" aria-labelledby="team-h">
+  <p class="eyebrow">Team</p>
+  <h2 id="team-h" class="h2">The flock</h2>
+  <div class="team__grid">
+    <article class="member">
+      <div class="member__avatar member__avatar--photo member__avatar--mist"><img src="assets/team/sofia.jpg" alt="Photo of Sofia I." loading="lazy"></div>
+      <div><h3>Sofia I.</h3><p class="member__role">Designer &amp; coder</p></div>
+    </article>
+    <article class="member">
+      <div class="member__avatar member__avatar--photo member__avatar--blue"><img src="assets/team/quynh.jpg" alt="Photo of Quynh N." loading="lazy"></div>
+      <div><h3>Quynh N.</h3><p class="member__role">Coder</p></div>
+    </article>
+    <article class="member">
+      <div class="member__avatar member__avatar--photo member__avatar--mint"><img src="assets/team/tasmia.jpg" alt="Photo of Tasmia A." loading="lazy"></div>
+      <div><h3>Tasmia A.</h3><p class="member__role">Designer</p></div>
+    </article>
+    <article class="member">
+      <div class="member__avatar member__avatar--photo member__avatar--duck"><img src="assets/team/aditi.jpg" alt="Photo of Aditi G." loading="lazy"></div>
+      <div><h3>Aditi G.</h3><p class="member__role">Designer &amp; coder</p></div>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <span aria-hidden="true" class="soap" style="right: 8%; top: 60px; --s: 120px"></span>
+  <span aria-hidden="true" class="soap" style="right: 20%; top: 40px; --s: 40px"></span>
+  <span aria-hidden="true" class="soap" style="right: 4%; top: 220px; --s: 56px"></span>
+  <div class="wrap">
+    <p class="footer__big">Okay, that’s enough website.</p>
+    <p class="footer__go">Go focus.</p>
+    <div class="footer__bar">
+      <a href="#top" class="site-logo"><img src="assets/logo.png" alt="Bubble — back to top"></a>
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="#process">Process</a>
+        <a href="#deliverables">Deliverables</a>
+        <a href="#videos">Videos</a>
+        <a href="#team">Team</a>
+      </nav>
+      <p class="footer__credits">CS 147 · Stanford University · Autumn 2026</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/intro.js?v=20261118"></script>
+<script src="js/carousel.js?v=20261118"></script>
+</body>
+</html>

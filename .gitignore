@@ -1,0 +1,7 @@
+# Only the website is tracked; everything else in this folder stays local.
+/*
+!/site/
+!/deploy.sh
+!/README.md
+!/.gitignore
+.DS_Store

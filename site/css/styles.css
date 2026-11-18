@@ -1,0 +1,587 @@
+/* Bubble — page styles. Colors, fonts and shared components live in tokens.css. */
+
+/* ---------- base ---------- */
+body {
+  margin: 0;
+  background: var(--foam);
+  color: var(--ink);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+a { color: var(--ink); }
+a:hover { color: var(--splash); }
+button { font-family: inherit; }
+a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--splash);
+  outline-offset: 3px;
+}
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- shared type + layout ---------- */
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+.h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-display);
+}
+.eyebrow {
+  margin: 0 0 16px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--splash);
+}
+.accent {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.15em;
+  text-transform: none;
+}
+
+/* Pill links and "coming soon" placeholders */
+.pill {
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.pill--lg { padding: 0 18px; font-size: 15px; }
+.pill--soon {
+  border: 2px dashed var(--ink-soft);
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+.pill--lg.pill--soon { font-weight: 600; }
+
+/* ---------- hero ---------- */
+.hero {
+  --hero-gutter: clamp(16px, 3vw, 32px);
+  position: relative;
+  background: var(--sky);
+  overflow: hidden;
+}
+.hero__bubbles { position: absolute; inset: 0; pointer-events: none; }
+
+.site-header {
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 16px var(--hero-gutter);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.site-nav { display: flex; flex-wrap: wrap; gap: 8px; flex: 1 1 0; }
+.site-nav .pill { padding: 0 18px; }
+.site-logo { display: inline-flex; align-items: center; min-height: var(--tap); }
+.site-logo img { height: 56px; width: auto; }
+.site-header__end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  flex: 1 1 0;
+}
+.course-tag { margin: 0; font-size: 12px; line-height: 1.3; text-align: right; }
+
+.hero__body {
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 48px var(--hero-gutter) 0;
+  text-align: center;
+}
+.hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: var(--lh-display);
+  letter-spacing: -0.01em;
+  font-size: var(--fs-hero);
+}
+.hero__title > span { display: block; }
+.hero__title .accent {
+  color: var(--white);
+  -webkit-text-stroke: 2px var(--ink);
+  paint-order: stroke fill;
+  letter-spacing: 0;
+}
+.hero__lede {
+  max-width: 560px;
+  margin: 28px auto 0;
+  font-size: clamp(17px, 1.6vw, 21px);
+  line-height: 1.45;
+}
+
+/* Duck parade: ducklings follow the mother, who leads on the right. They walk in from the left (see "parade walk-in" below). */
+.lineup {
+  margin: 48px calc(-1 * var(--hero-gutter)) 0;
+  padding: 0 var(--hero-gutter);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(8px, 2vw, 28px);
+}
+.lineup .duck { position: relative; flex: none; height: 120px; aspect-ratio: var(--ar); }
+.lineup .mom { height: 220px; margin-left: clamp(8px, 2vw, 24px); }
+/* Each duck is three stacked layers cut from one drawing: back leg, front leg, body on top.
+   --ar is the drawing's shape; the --b and --f values are each leg's hip (its pivot). */
+.duck img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.duck__leg--back  { transform-origin: var(--bx) var(--by); }
+.duck__leg--front { transform-origin: var(--fx) var(--fy); }
+
+.duck--mother { --ar: 390 / 440; --bx: 30.5%; --by: 77.2%; --fx: 76.6%; --fy: 76.0%; }
+.duck--artist { --ar: 339 / 440; --bx: 25.7%; --by: 78.1%; --fx: 72.0%; --fy: 81.4%; }
+.duck--bandana { --ar: 371 / 440; --bx: 25.4%; --by: 79.7%; --fx: 77.5%; --fy: 79.0%; }
+.duck--cap { --ar: 349 / 440; --bx: 25.7%; --by: 80.8%; --fx: 73.9%; --fy: 79.1%; }
+.duck--chef { --ar: 289 / 440; --bx: 30.9%; --by: 80.9%; --fx: 73.7%; --fy: 84.5%; }
+
+/* ---------- the problem ---------- */
+.problem {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 64px var(--gutter) 110px;
+}
+.problem__label {
+  margin: 0 0 32px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--splash);
+}
+.problem__statement {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: var(--fs-statement);
+  line-height: 1;
+  letter-spacing: -0.005em;
+}
+.problem__statement span { display: block; }
+.problem__statement .muted { color: var(--ink-soft); }
+
+/* ---------- meet bubble ---------- */
+.meet .wrap { padding-top: 110px; padding-bottom: 110px; }
+.meet__intro {
+  background: var(--foam);
+  border-radius: 32px;
+  padding: clamp(24px, 4vw, 48px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.meet__blurb {
+  margin: 0;
+  max-width: 440px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.step {
+  background: var(--white);
+  border-radius: var(--radius-card);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.step__num {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--splash);
+}
+.step h3 { margin: 0; font-weight: 700; font-size: 26px; }
+.step p:last-child { margin: 0; font-size: 16px; line-height: 1.5; color: var(--ink-soft); }
+.step--highlight { background: var(--duck); }
+.step--highlight .step__num,
+.step--highlight p:last-child { color: var(--ink); }
+
+/* ---------- process path ---------- */
+.process { padding-top: 120px; padding-bottom: 140px; }
+.process .h2 { margin: 0 auto 48px; text-align: center; }
+.proc {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  aspect-ratio: 1200 / 2000;
+}
+.proc__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.proc__track { fill: none; stroke: var(--teal); stroke-width: 12; stroke-linecap: round; }
+.proc__track--faint { stroke-opacity: 0.3; }
+.proc__start { fill: var(--duck); stroke: var(--ink); stroke-width: 3; }
+
+/* Each stop is placed on the line with --x / --y. */
+.stop {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.stop__head { display: flex; align-items: center; gap: 10px; }
+.stop__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(30px, 4.4vw, 62px);
+  line-height: 0.95;
+  color: var(--bath-blue);
+}
+.stop__duck { height: 64px; width: auto; }
+.stop__note {
+  margin: 8px 0 0 80px;
+  max-width: var(--w, 300px);
+  padding: 10px 18px;
+  border: 1.5px solid var(--teal);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  font-size: 14px;
+  line-height: 1.35;
+  transform: rotate(-3deg);
+}
+.stop:nth-of-type(even) .stop__note { margin-left: 60px; }
+
+/* Future stops: outlined title, grey duckling, dashed note */
+.stop--soon .stop__title { color: transparent; -webkit-text-stroke: 1.5px var(--bath-blue); }
+.stop--soon .stop__duck { filter: grayscale(1); opacity: 0.55; }
+.stop--soon .stop__note { border-style: dashed; color: var(--ink-soft); max-width: none; }
+
+/* "We're here" marker */
+.here { position: relative; }
+.here img { height: 88px; width: auto; }
+.here__tag {
+  position: absolute;
+  left: 70px;
+  top: -26px;
+  white-space: nowrap;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--duck);
+  font-weight: 700;
+  font-size: 14px;
+  transform: rotate(6deg);
+}
+
+/* ---------- deliverables carousel ---------- */
+.paper-trail {
+  background: var(--sky);
+  padding: 110px 0 120px;
+  overflow: hidden;
+}
+.paper-trail__head {
+  margin-bottom: 48px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+}
+.paper-trail .eyebrow { color: var(--ink); }
+.carousel { position: relative; }
+.car-track {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(16px, 3vw, 40px);
+  transition: transform 1.2s cubic-bezier(.45, 0, .2, 1); /* SLIDE in js/carousel.js */
+}
+.car-track.is-still, .car-track.is-still .card { transition: none; }
+.car-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 56px;
+  height: 56px;
+  margin-top: -28px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.car-arrow--prev { left: clamp(12px, 3vw, 40px); }
+.car-arrow--next { right: clamp(12px, 3vw, 40px); }
+
+.card {
+  flex: 0 0 min(820px, 64vw);
+  min-height: 440px;
+  padding: 72px clamp(24px, 5vw, 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  color: var(--ink);
+  cursor: pointer;
+  opacity: .7;
+  transform: scale(.88);
+  transition: transform 1.2s cubic-bezier(.45, 0, .2, 1), opacity 1.2s ease;
+}
+.card.is-on { opacity: 1; transform: none; cursor: auto; }
+.card__meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.card__code {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 20px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--foam);
+}
+.card__status { font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.card__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(28px, 3.4vw, 46px);
+  line-height: 0.98;
+}
+.card__desc { margin: 0; font-size: 18px; line-height: 1.5; max-width: 560px; }
+.card__stat {
+  margin: 0;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.25;
+  padding: 14px 20px;
+  border-radius: 20px;
+  background: var(--white);
+  align-self: flex-start;
+  transform: rotate(-1.5deg);
+}
+.card__links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+
+.car-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 36px;
+  padding: 0 16px;
+}
+.car-dot {
+  min-width: var(--tap);
+  height: var(--tap);
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* ---------- videos ---------- */
+.videos { padding-top: 130px; padding-bottom: 20px; }
+.videos .h2 { margin-bottom: 48px; }
+.videos__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 28px;
+}
+.video { display: flex; flex-direction: column; gap: 16px; }
+.video__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-card);
+  background: var(--bath-blue);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.video__frame > video,
+.video__frame > iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video__duck { position: absolute; right: 6%; bottom: -8%; width: 38%; height: auto; }
+.video__play {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border-radius: var(--radius-pill);
+  display: grid;
+  place-items: center;
+}
+.video__frame--soon {
+  background: var(--placeholder);
+  border: 2px dashed var(--teal);
+  text-align: center;
+  padding: 24px;
+}
+.video__frame--soon p { margin: 0; font-weight: 700; font-size: 26px; color: var(--ink-soft); }
+.video__foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.video__foot h3 { margin: 0; font-weight: 700; font-size: 28px; }
+.video__links { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- team ---------- */
+.team { padding-top: 130px; padding-bottom: 130px; }
+.team .h2 { margin-bottom: 48px; }
+.team__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.member { display: flex; flex-direction: column; gap: 14px; }
+.member__avatar {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-pill);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.member__avatar img { width: 72%; height: 72%; object-fit: contain; } /* whole duck; the prototype cropped it by accident */
+.member__avatar--photo img { width: 100%; height: 100%; object-fit: cover; } /* team photos from the slide decks */
+.member__avatar--mist { background: var(--aqua-mist); }
+.member__avatar--blue { background: var(--tile-blue); }
+.member__avatar--mint { background: var(--tile-mint); }
+.member__avatar--duck { background: var(--duck); }
+.member h3 { margin: 0; font-weight: 700; font-size: 26px; }
+.member__role { margin: 4px 0 0; font-size: 15px; color: var(--ink-soft); }
+
+/* ---------- footer ---------- */
+.site-footer {
+  position: relative;
+  overflow: hidden;
+  background: var(--bath-blue);
+  color: var(--foam);
+}
+.site-footer .wrap { position: relative; padding-top: 110px; padding-bottom: 40px; }
+.footer__big {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(48px, 9vw, 140px);
+  line-height: 0.88;
+}
+.footer__go {
+  margin: 20px 0 72px;
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(36px, 4.4vw, 64px);
+  color: var(--duck);
+  transform: rotate(-3deg);
+  transform-origin: left;
+}
+.footer__bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+  border-top: 1px solid var(--footer-rule);
+  padding-top: 32px;
+}
+.footer__bar .site-logo img { height: 60px; }
+.footer__nav { display: flex; flex-wrap: wrap; gap: 24px; font-size: 15px; }
+.footer__nav a { color: var(--foam); }
+.footer__credits { margin: 0; font-size: 14px; line-height: 1.5; color: var(--footer-muted); text-align: right; }
+
+/* ---------- scroll effects (browsers without scroll timelines just show the final state) ---------- */
+@supports (animation-timeline: view()) {
+  .focus-line { animation: focusIn linear both; animation-timeline: view(); animation-range: entry 10% cover 42%; }
+  .draw { animation: draw linear both; animation-timeline: view(); animation-range: cover 40vh cover calc(100% - 50vh); }
+}
+@keyframes focusIn { from { filter: blur(10px); opacity: .25; } to { filter: blur(0); opacity: 1; } }
+@keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+/* ---------- parade walk-in ----------
+   The whole lineup walks in from off-screen left at a steady pace (translate) and stops in place.
+   While walking, each duck's legs swing past each other from the hip (rotate on the leg layers), and
+   the duck shifts down as a foot lifts (transform) so the lowest foot always stays on the ground.
+   Every stride fits a whole number of times into the walk's 8s, so the ducks finish in their drawn
+   pose. Starts once the intro has finished. */
+@media (prefers-reduced-motion: no-preference) {
+  .intro .lineup .duck { translate: -100vw 0; } /* wait off-screen while the intro plays */
+  html:not(.intro) .lineup .duck {
+    animation: walk-in 8s cubic-bezier(.3, .3, .7, 1) both, var(--ground) .5s linear 16;
+  }
+  html:not(.intro) .lineup .duck__leg--back  { animation: var(--stride-back) .5s linear 16; }
+  html:not(.intro) .lineup .duck__leg--front { animation: var(--stride-front) .5s linear 16; }
+  /* out of step with neighbours */
+  html:not(.intro) .lineup .duck:nth-child(even) { animation-delay: 0s, -.25s; }
+  html:not(.intro) .lineup .duck:nth-child(even) .duck__leg { animation-delay: -.25s; }
+  /* the mother takes longer strides */
+  html:not(.intro) .lineup .mom { animation-duration: 8s, .8s; animation-iteration-count: 1, 10; }
+  html:not(.intro) .lineup .mom .duck__leg { animation-duration: .8s; animation-iteration-count: 10; }
+}
+@keyframes walk-in { from { translate: -100vw 0; } to { translate: 0 0; } }
+
+/* Stride keyframes, one set per duck, generated from the leg drawings: each leg swings as a smooth
+   sine around straight down, starting and ending in its drawn pose, and the ground keyframes move the
+   duck down by however far its lowest foot has lifted at that moment. */
+@keyframes stride-back-mother { 0% { rotate: 0.0deg; } 6.25% { rotate: -3.9deg; } 12.5% { rotate: -5.6deg; } 18.75% { rotate: -4.8deg; } 25% { rotate: -1.8deg; } 31.25% { rotate: 3.1deg; } 37.5% { rotate: 9.2deg; } 43.75% { rotate: 15.4deg; } 50% { rotate: 20.8deg; } 56.25% { rotate: 24.7deg; } 62.5% { rotate: 26.4deg; } 68.75% { rotate: 25.6deg; } 75% { rotate: 22.6deg; } 81.25% { rotate: 17.7deg; } 87.5% { rotate: 11.6deg; } 93.75% { rotate: 5.4deg; } 100% { rotate: 0.0deg; } }
+@keyframes stride-front-mother { 0% { rotate: 0.0deg; } 6.25% { rotate: 6.6deg; } 12.5% { rotate: 10.1deg; } 18.75% { rotate: 15.3deg; } 25% { rotate: 21.4deg; } 31.25% { rotate: 27.5deg; } 37.5% { rotate: 32.7deg; } 43.75% { rotate: 36.2deg; } 50% { rotate: 37.4deg; } 56.25% { rotate: 36.2deg; } 62.5% { rotate: 32.7deg; } 68.75% { rotate: 27.5deg; } 75% { rotate: 21.4deg; } 81.25% { rotate: 15.3deg; } 87.5% { rotate: 10.1deg; } 93.75% { rotate: 6.6deg; } 100% { rotate: 0.0deg; } }
+@keyframes ground-mother { 0% { transform: translateY(0.00%); } 6.25% { transform: translateY(0.23%); } 12.5% { transform: translateY(0.23%); } 18.75% { transform: translateY(0.23%); } 25% { transform: translateY(0.00%); } 31.25% { transform: translateY(0.00%); } 37.5% { transform: translateY(0.00%); } 43.75% { transform: translateY(0.00%); } 50% { transform: translateY(0.00%); } 56.25% { transform: translateY(0.00%); } 62.5% { transform: translateY(0.00%); } 68.75% { transform: translateY(0.00%); } 75% { transform: translateY(0.00%); } 81.25% { transform: translateY(0.00%); } 87.5% { transform: translateY(0.00%); } 93.75% { transform: translateY(0.00%); } 100% { transform: translateY(0.00%); } }
+.duck--mother { --stride-back: stride-back-mother; --stride-front: stride-front-mother; --ground: ground-mother; }
+@keyframes stride-back-artist { 0% { rotate: 0.0deg; } 6.25% { rotate: -7.6deg; } 12.5% { rotate: -13.0deg; } 18.75% { rotate: -15.5deg; } 25% { rotate: -14.6deg; } 31.25% { rotate: -10.6deg; } 37.5% { rotate: -4.0deg; } 43.75% { rotate: 4.3deg; } 50% { rotate: 12.8deg; } 56.25% { rotate: 20.4deg; } 62.5% { rotate: 25.8deg; } 68.75% { rotate: 28.3deg; } 75% { rotate: 27.4deg; } 81.25% { rotate: 23.4deg; } 87.5% { rotate: 16.8deg; } 93.75% { rotate: 8.5deg; } 100% { rotate: 0.0deg; } }
+@keyframes stride-front-artist { 0% { rotate: 0.0deg; } 6.25% { rotate: 7.6deg; } 12.5% { rotate: 16.2deg; } 18.75% { rotate: 24.4deg; } 25% { rotate: 30.9deg; } 31.25% { rotate: 34.8deg; } 37.5% { rotate: 35.6deg; } 43.75% { rotate: 32.9deg; } 50% { rotate: 27.4deg; } 56.25% { rotate: 19.8deg; } 62.5% { rotate: 11.2deg; } 68.75% { rotate: 3.0deg; } 75% { rotate: -3.5deg; } 81.25% { rotate: -7.4deg; } 87.5% { rotate: -8.2deg; } 93.75% { rotate: -5.5deg; } 100% { rotate: 0.0deg; } }
+@keyframes ground-artist { 0% { transform: translateY(0.00%); } 6.25% { transform: translateY(0.23%); } 12.5% { transform: translateY(0.68%); } 18.75% { transform: translateY(0.91%); } 25% { transform: translateY(0.91%); } 31.25% { transform: translateY(0.45%); } 37.5% { transform: translateY(0.00%); } 43.75% { transform: translateY(0.00%); } 50% { transform: translateY(0.00%); } 56.25% { transform: translateY(0.00%); } 62.5% { transform: translateY(0.00%); } 68.75% { transform: translateY(0.00%); } 75% { transform: translateY(0.00%); } 81.25% { transform: translateY(0.00%); } 87.5% { transform: translateY(0.00%); } 93.75% { transform: translateY(0.00%); } 100% { transform: translateY(0.00%); } }
+.duck--artist { --stride-back: stride-back-artist; --stride-front: stride-front-artist; --ground: ground-artist; }
+@keyframes stride-back-bandana { 0% { rotate: 0.0deg; } 6.25% { rotate: -8.4deg; } 12.5% { rotate: -15.6deg; } 18.75% { rotate: -20.4deg; } 25% { rotate: -22.1deg; } 31.25% { rotate: -20.5deg; } 37.5% { rotate: -15.7deg; } 43.75% { rotate: -8.6deg; } 50% { rotate: -0.2deg; } 56.25% { rotate: 8.2deg; } 62.5% { rotate: 15.4deg; } 68.75% { rotate: 20.2deg; } 75% { rotate: 21.9deg; } 81.25% { rotate: 20.3deg; } 87.5% { rotate: 15.5deg; } 93.75% { rotate: 8.4deg; } 100% { rotate: 0.0deg; } }
+@keyframes stride-front-bandana { 0% { rotate: 0.0deg; } 6.25% { rotate: 6.0deg; } 12.5% { rotate: 13.8deg; } 18.75% { rotate: 22.4deg; } 25% { rotate: 30.4deg; } 31.25% { rotate: 36.6deg; } 37.5% { rotate: 40.0deg; } 43.75% { rotate: 40.1deg; } 50% { rotate: 37.0deg; } 56.25% { rotate: 31.0deg; } 62.5% { rotate: 23.2deg; } 68.75% { rotate: 14.6deg; } 75% { rotate: 6.6deg; } 81.25% { rotate: 0.4deg; } 87.5% { rotate: -3.0deg; } 93.75% { rotate: -3.1deg; } 100% { rotate: 0.0deg; } }
+@keyframes ground-bandana { 0% { transform: translateY(0.00%); } 6.25% { transform: translateY(0.00%); } 12.5% { transform: translateY(0.00%); } 18.75% { transform: translateY(0.23%); } 25% { transform: translateY(0.23%); } 31.25% { transform: translateY(0.23%); } 37.5% { transform: translateY(0.00%); } 43.75% { transform: translateY(0.00%); } 50% { transform: translateY(0.00%); } 56.25% { transform: translateY(0.23%); } 62.5% { transform: translateY(0.23%); } 68.75% { transform: translateY(0.45%); } 75% { transform: translateY(0.45%); } 81.25% { transform: translateY(0.45%); } 87.5% { transform: translateY(0.23%); } 93.75% { transform: translateY(0.23%); } 100% { transform: translateY(0.00%); } }
+.duck--bandana { --stride-back: stride-back-bandana; --stride-front: stride-front-bandana; --ground: ground-bandana; }
+@keyframes stride-back-cap { 0% { rotate: 0.0deg; } 6.25% { rotate: -8.4deg; } 12.5% { rotate: -15.4deg; } 18.75% { rotate: -19.9deg; } 25% { rotate: -21.4deg; } 31.25% { rotate: -19.5deg; } 37.5% { rotate: -14.5deg; } 43.75% { rotate: -7.3deg; } 50% { rotate: 1.2deg; } 56.25% { rotate: 9.6deg; } 62.5% { rotate: 16.6deg; } 68.75% { rotate: 21.1deg; } 75% { rotate: 22.6deg; } 81.25% { rotate: 20.7deg; } 87.5% { rotate: 15.7deg; } 93.75% { rotate: 8.5deg; } 100% { rotate: 0.0deg; } }
+@keyframes stride-front-cap { 0% { rotate: 0.0deg; } 6.25% { rotate: 7.3deg; } 12.5% { rotate: 15.8deg; } 18.75% { rotate: 24.1deg; } 25% { rotate: 31.1deg; } 31.25% { rotate: 35.6deg; } 37.5% { rotate: 37.0deg; } 43.75% { rotate: 35.0deg; } 50% { rotate: 30.0deg; } 56.25% { rotate: 22.7deg; } 62.5% { rotate: 14.2deg; } 68.75% { rotate: 5.9deg; } 75% { rotate: -1.1deg; } 81.25% { rotate: -5.6deg; } 87.5% { rotate: -7.0deg; } 93.75% { rotate: -5.0deg; } 100% { rotate: 0.0deg; } }
+@keyframes ground-cap { 0% { transform: translateY(0.00%); } 6.25% { transform: translateY(0.00%); } 12.5% { transform: translateY(0.23%); } 18.75% { transform: translateY(0.45%); } 25% { transform: translateY(0.68%); } 31.25% { transform: translateY(0.45%); } 37.5% { transform: translateY(0.23%); } 43.75% { transform: translateY(0.00%); } 50% { transform: translateY(0.00%); } 56.25% { transform: translateY(0.45%); } 62.5% { transform: translateY(0.68%); } 68.75% { transform: translateY(0.68%); } 75% { transform: translateY(0.68%); } 81.25% { transform: translateY(0.68%); } 87.5% { transform: translateY(0.68%); } 93.75% { transform: translateY(0.23%); } 100% { transform: translateY(0.00%); } }
+.duck--cap { --stride-back: stride-back-cap; --stride-front: stride-front-cap; --ground: ground-cap; }
+@keyframes stride-back-chef { 0% { rotate: 0.0deg; } 6.25% { rotate: -8.3deg; } 12.5% { rotate: -15.1deg; } 18.75% { rotate: -19.5deg; } 25% { rotate: -20.7deg; } 31.25% { rotate: -18.5deg; } 37.5% { rotate: -13.3deg; } 43.75% { rotate: -5.9deg; } 50% { rotate: 2.6deg; } 56.25% { rotate: 10.9deg; } 62.5% { rotate: 17.7deg; } 68.75% { rotate: 22.1deg; } 75% { rotate: 23.3deg; } 81.25% { rotate: 21.1deg; } 87.5% { rotate: 15.9deg; } 93.75% { rotate: 8.5deg; } 100% { rotate: 0.0deg; } }
+@keyframes stride-front-chef { 0% { rotate: 0.0deg; } 6.25% { rotate: 7.5deg; } 12.5% { rotate: 16.1deg; } 18.75% { rotate: 24.3deg; } 25% { rotate: 31.0deg; } 31.25% { rotate: 35.1deg; } 37.5% { rotate: 36.0deg; } 43.75% { rotate: 33.6deg; } 50% { rotate: 28.2deg; } 56.25% { rotate: 20.7deg; } 62.5% { rotate: 12.1deg; } 68.75% { rotate: 3.9deg; } 75% { rotate: -2.8deg; } 81.25% { rotate: -6.9deg; } 87.5% { rotate: -7.8deg; } 93.75% { rotate: -5.4deg; } 100% { rotate: 0.0deg; } }
+@keyframes ground-chef { 0% { transform: translateY(0.00%); } 6.25% { transform: translateY(0.00%); } 12.5% { transform: translateY(0.23%); } 18.75% { transform: translateY(0.45%); } 25% { transform: translateY(0.45%); } 31.25% { transform: translateY(0.23%); } 37.5% { transform: translateY(0.23%); } 43.75% { transform: translateY(0.00%); } 50% { transform: translateY(0.00%); } 56.25% { transform: translateY(0.45%); } 62.5% { transform: translateY(0.45%); } 68.75% { transform: translateY(0.45%); } 75% { transform: translateY(0.68%); } 81.25% { transform: translateY(0.68%); } 87.5% { transform: translateY(0.45%); } 93.75% { transform: translateY(0.45%); } 100% { transform: translateY(0.00%); } }
+.duck--chef { --stride-back: stride-back-chef; --stride-front: stride-front-chef; --ground: ground-chef; }
+
+/* ---------- phones ---------- */
+@media (max-width: 760px) {
+  .proc { aspect-ratio: auto; display: flex; flex-direction: column; gap: 48px; }
+  .proc__svg { display: none; }
+  .stop { position: static; transform: none; }
+  .card { flex-basis: 80vw; padding-left: 22px; padding-right: 22px; }
+  .car-arrow { width: 44px; height: 44px; margin-top: -22px; }
+  .car-arrow--prev { left: 6px; }
+  .car-arrow--next { right: 6px; }
+  .team__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lineup .duck { height: 80px; }
+  .lineup .mom { height: 130px; }
+  .lineup .hide-sm { display: none; }
+  .here__tag { left: 50%; top: -34px; transform: translateX(-50%) rotate(6deg); } /* keep the tag on screen */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .focus-line, .draw { animation: none !important; }
+}

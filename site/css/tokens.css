@@ -1,0 +1,92 @@
+/* Bubble design tokens (sky version). Fonts are loaded by a <link> in index.html. */
+
+:root {
+  /* color */
+  --sky: #5FA4CF;          /* hero + deliverables band */
+  --foam: #F5FBFC;         /* page background */
+  --white: #FFFFFF;
+  --butter: #F7EFC8;
+  --duck: #FFE36E;         /* highlights */
+  --teal: #5FB3AA;         /* lines + borders only, not text */
+  --aqua-mist: #CDEBEF;
+  --tile-mint: #E3F2DF;
+  --tile-butter: #F6F0D2;
+  --tile-blue: #D6E4F4;
+  --bath-blue: #1F4E8C;    /* footer, video player */
+  --splash: #1F5FA0;       /* labels on light backgrounds */
+  --ink: #12304A;          /* headings, primary buttons */
+  --ink-soft: #3E6275;     /* body text */
+  /* one-off tints already used in the approved prototype */
+  --placeholder: #EAF6F7;  /* "coming soon" video frame */
+  --footer-rule: #5C86B8;  /* footer divider */
+  --footer-muted: #D4E6F5; /* footer credits */
+
+  /* type */
+  --font-display: "Anton", "Arial Narrow", sans-serif;      /* weight 400, uppercase */
+  --font-accent: "Instrument Serif", Georgia, serif;        /* italic, 1.15em */
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --fs-hero: clamp(56px, 10.5vw, 176px);
+  --fs-h2: clamp(44px, 7vw, 104px);
+  --fs-statement: clamp(34px, 5vw, 72px);
+  --fs-body: 17px;
+  --lh-display: 0.9;
+
+  /* shape + space */
+  --radius-card: 28px;
+  --radius-pill: 999px;
+  --tap: 44px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1280px;
+}
+
+/* Liquid-glass buttons */
+.glass {
+  background: rgba(255, 255, 255, .42);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, .85);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .95), inset 0 -6px 14px rgba(255, 255, 255, .25),
+              0 0 0 1px rgba(18, 48, 74, .10), 0 8px 22px rgba(18, 48, 74, .14);
+  color: var(--ink);
+  transition: transform .15s ease, background .15s ease;
+}
+.glass:hover { background: rgba(255, 255, 255, .65); color: var(--ink); transform: translateY(-1px); }
+
+.glass-ink {
+  background: rgba(18, 48, 74, .74);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, .35);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, .45), inset 0 -6px 14px rgba(255, 255, 255, .08),
+              0 8px 22px rgba(18, 48, 74, .22);
+  color: var(--foam);
+  transition: transform .15s ease, background .15s ease;
+}
+.glass-ink:hover { background: rgba(18, 48, 74, .88); color: var(--foam); transform: translateY(-1px); }
+
+/* Soap bubble decoration. Set position inline and size with --s. */
+.soap {
+  position: absolute; border-radius: 50%;
+  width: var(--s, 60px); height: var(--s, 60px);
+  background: radial-gradient(circle at 30% 26%, #fff 0 9%, rgba(255,255,255,.5) 16%, rgba(230,246,250,.18) 50%,
+              rgba(255,236,170,.28) 72%, rgba(170,140,230,.45) 92%, rgba(255,255,255,.7) 100%);
+  box-shadow: inset -5px -8px 14px rgba(90,150,200,.25), inset 4px 6px 10px rgba(255,255,255,.8);
+}
+
+/* Bathroom tiles (Meet Bubble section) */
+.tiles {
+  background-color: #fff;
+  background-image: linear-gradient(#fff 3px, transparent 3px), linear-gradient(90deg, #fff 3px, transparent 3px),
+    conic-gradient(var(--aqua-mist) 0 25%, var(--tile-mint) 0 50%, var(--tile-butter) 0 75%, var(--tile-blue) 0);
+  background-size: 72px 72px, 72px 72px, 144px 144px;
+}
+
+/* Wavy top and bottom edges (deliverable cards) */
+.wavy {
+  --m: radial-gradient(22.36px at 50% 30px, #000 99%, #0000 101%) calc(50% - 20px) 0/40px 51% repeat-x,
+       radial-gradient(22.36px at 50% -20px, #0000 99%, #000 101%) 50% 10px/40px calc(51% - 10px) repeat-x,
+       radial-gradient(22.36px at 50% calc(100% - 30px), #000 99%, #0000 101%) calc(50% - 20px) 100%/40px 51% repeat-x,
+       radial-gradient(22.36px at 50% calc(100% + 20px), #0000 99%, #000 101%) 50% calc(100% - 10px)/40px calc(51% - 10px) repeat-x;
+  -webkit-mask: var(--m);
+  mask: var(--m);
+}
